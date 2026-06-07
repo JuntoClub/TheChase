@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Chase Product Catalog</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="index.html">The Chase</a>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a id="catalogBuy" class="btn primary" href="#">Buy Packs</a>
+    </div>
+  </nav>
+
+  <section style="padding-top:96px">
+    <div class="container panel">
+      <h2>Complete Product Catalog</h2>
+      <p class="subhead">Series 001 product catalog from page 3 of the attached spreadsheet.</p>
+      <div class="table-wrap">
+        <table class="catalog-table">
+          <thead><tr><th>Product</th><th>Count</th></tr></thead>
+          <tbody id="catalogBody"></tbody>
+        </table>
+      </div>
+      <div class="total stat" style="margin:22px auto 0; width:min(320px,100%)">
+        <strong id="catalogTotal">100</strong><span>Total Packs</span>
+      </div>
+      <div class="small-note">
+        To update quantities later, edit the catalog list in data.js.
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    The Chase · Product Catalog · www.thechase.info
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

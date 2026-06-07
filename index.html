@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Chase</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="index.html">The Chase</a>
+    <div class="links">
+      <a href="#odds">Odds</a>
+      <a href="catalog.html">Catalog</a>
+      <a id="navBuy" class="btn primary" href="#">Buy Packs</a>
+    </div>
+  </nav>
+
+  <main class="hero">
+    <div class="logo-card">
+      <img src="assets/the-chase-horse-logo.png" alt="The Chase horse logo">
+    </div>
+
+    <section class="hero-copy">
+      <div class="kicker">Series 001 · 100 Packs Only</div>
+      <h1>The Chase</h1>
+      <p>
+        Only 100 packs exist in this release. Every pack contains a graded coin and a chance at some of the most desirable gold and silver collectibles in The Chase.
+      </p>
+      <div class="actions">
+        <a id="buyPacks" class="btn primary" href="#">Buy Packs</a>
+        <a id="ebayStore" class="btn" href="#">Visit eBay Store</a>
+        <a class="btn" href="catalog.html">View Product Catalog</a>
+      </div>
+
+      <div class="release-callout">
+        <div>
+          <span>Price Per Pack</span>
+          <strong id="pricePerPack">$99.99</strong>
+        </div>
+        <div>
+          <span>Limited Release</span>
+          <strong>Only 100 Packs</strong>
+        </div>
+      </div>
+
+      <div class="tracker">
+        <div class="stat"><strong id="totalPacks">100</strong><span>Total Packs In Release</span></div>
+        <div class="stat"><strong id="packsSold">0</strong><span>Packs Sold</span></div>
+        <div class="stat"><strong id="packsRemaining">100</strong><span>Packs Remaining</span></div>
+      </div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div class="small-note" id="lastUpdated"></div>
+    </section>
+  </main>
+
+  <section id="odds">
+    <div class="container panel">
+      <h2>Prize Highlights</h2>
+      <p class="subhead">Top chase items and featured prize categories from the Series 001 catalog.</p>
+      <div class="grid" id="featuredGrid"></div>
+      <div class="actions" style="justify-content:center">
+        <a class="btn primary" href="catalog.html">See Full Catalog</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    The Chase · Series 001 · 100 Packs · No Reprints · No Exceptions
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
