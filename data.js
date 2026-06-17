@@ -1,7 +1,7 @@
 window.CHASE_DATA = {
   ebayStoreUrl: "https://www.ebay.com/str/warrencoinco?_trksid=p3445240.m570.l113337",
   buyPacksUrl: "https://www.ebay.com/str/warrencoinco?_trksid=p3445240.m570.l113337",
-  totalPacks: 100,
+  totalPacks: 105,
   pricePerPack: "$99.99",
   packsSold: 0,
   lastUpdated: "Update this in data.js",
@@ -152,7 +152,7 @@ window.CHASE_DATA = {
   },
   {
     "product": "1954-1969 Mexico 5c Brass NGC Brilliant Uncirculated",
-    "count": "15"
+    "count": "20"
   }
 ],
   featured: [
