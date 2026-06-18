@@ -4,7 +4,7 @@ window.CHASE_DATA = {
   totalPacks: 105,
   pricePerPack: "$99.99",
   packsSold: 4,
-  lastUpdated: "Update this in data.js",
+  
   catalog: [
   {
     "product": "1902 (1/4oz. AU) Gold Liberty Head $5 ICG-AU58",
