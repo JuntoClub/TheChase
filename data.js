@@ -3,7 +3,7 @@ window.CHASE_DATA = {
   buyPacksUrl: "https://www.ebay.com/str/warrencoinco?_trksid=p3445240.m570.l113337",
   totalPacks: 105,
   pricePerPack: "$99.99",
-  packsSold: 0,
+  packsSold: 4,
   lastUpdated: "Update this in data.js",
   catalog: [
   {
