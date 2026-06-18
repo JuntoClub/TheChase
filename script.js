@@ -1,7 +1,7 @@
 
 (function(){
   const d = window.CHASE_DATA || {};
-  const total = Number(d.totalPacks || 100);
+  const total = Number(d.totalPacks || 105);
   const sold = Number(d.packsSold || 0);
   const remaining = Math.max(total - sold, 0);
   const price = d.pricePerPack || "$99.99";
