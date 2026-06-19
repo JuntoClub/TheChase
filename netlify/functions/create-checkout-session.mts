@@ -14,6 +14,8 @@ export default async (req: Request, _context: Context) => {
 
   const stripeSecretKey = Netlify.env.get("STRIPE_SECRET_KEY");
   const stripePriceId = Netlify.env.get("STRIPE_CHASE_PRICE_ID");
+  const shippingAmountCents = getShippingAmountCents();
+  const shippingDisplayName = Netlify.env.get("STRIPE_SHIPPING_DISPLAY_NAME") || "USPS Ground Advantage";
 
   if (!stripeSecretKey) {
     return json({ error: "Stripe is not configured." }, 500);
@@ -35,10 +37,35 @@ export default async (req: Request, _context: Context) => {
         quantity: 1,
       },
     ],
+    automatic_tax: {
+      enabled: true,
+    },
     billing_address_collection: "required",
     shipping_address_collection: {
       allowed_countries: ["US"],
     },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: {
+            amount: shippingAmountCents,
+            currency: "usd",
+          },
+          display_name: shippingDisplayName,
+          delivery_estimate: {
+            minimum: {
+              unit: "business_day",
+              value: 2,
+            },
+            maximum: {
+              unit: "business_day",
+              value: 5,
+            },
+          },
+        },
+      },
+    ],
     phone_number_collection: {
       enabled: true,
     },
@@ -52,6 +79,17 @@ export default async (req: Request, _context: Context) => {
 export const config: Config = {
   path: "/api/create-checkout-session",
 };
+
+function getShippingAmountCents() {
+  const configuredAmount = Netlify.env.get("STRIPE_SHIPPING_AMOUNT_CENTS");
+  const amount = configuredAmount ? Number(configuredAmount) : 600;
+
+  if (!Number.isInteger(amount) || amount < 0) {
+    return 600;
+  }
+
+  return amount;
+}
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
