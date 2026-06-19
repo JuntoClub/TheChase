@@ -46,10 +46,13 @@ async function countPaidStripePacks(stripe: Stripe, stripePriceId: string) {
 
   const sessions = await stripe.checkout.sessions.list({
     limit: 100,
-    payment_status: "paid",
   });
 
   for (const session of sessions.data) {
+    if (session.payment_status !== "paid") {
+      continue;
+    }
+
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
       limit: 100,
     });
