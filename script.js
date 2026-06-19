@@ -3,7 +3,6 @@
   const d = window.CHASE_DATA || {};
   const total = Number(d.totalPacks || 105);
   const sold = Number(d.packsSold || 0);
-  const remaining = Math.max(total - sold, 0);
   const price = d.pricePerPack || "$99.99";
 
   ["buyPacks","navBuy","catalogBuy"].forEach(id => {
@@ -21,10 +20,8 @@
   const remEl = document.getElementById("packsRemaining");
   const progress = document.getElementById("progressBar");
   const last = document.getElementById("lastUpdated");
-  if(totalEl) totalEl.textContent = total;
-  if(soldEl) soldEl.textContent = sold;
-  if(remEl) remEl.textContent = remaining;
-  if(progress) progress.style.width = Math.min((sold / total) * 100, 100) + "%";
+  renderPackStats(total, sold);
+  refreshPackStats();
   const priceEl = document.getElementById("pricePerPack");
   if(priceEl) priceEl.textContent = price;
   if(last && d.lastUpdated) last.textContent = "Last updated: " + d.lastUpdated;
@@ -79,5 +76,39 @@
       alert(error.message);
       link.removeAttribute("aria-busy");
     }
+  }
+
+  async function refreshPackStats() {
+    try {
+      const response = await fetch("/api/pack-stats", {
+        headers: {
+          "Accept": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to load live pack count.");
+      }
+
+      const stats = await response.json();
+      renderPackStats(Number(stats.totalPacks || total), Number(stats.packsSold || sold));
+
+      if (last) {
+        last.textContent = "Live pack count from Stripe";
+      }
+    } catch {
+      if (last && d.lastUpdated) {
+        last.textContent = "Last updated: " + d.lastUpdated;
+      }
+    }
+  }
+
+  function renderPackStats(totalPacks, packsSold) {
+    const remaining = Math.max(totalPacks - packsSold, 0);
+
+    if(totalEl) totalEl.textContent = totalPacks;
+    if(soldEl) soldEl.textContent = packsSold;
+    if(remEl) remEl.textContent = remaining;
+    if(progress) progress.style.width = Math.min((packsSold / totalPacks) * 100, 100) + "%";
   }
 })();
