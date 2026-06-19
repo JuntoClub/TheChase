@@ -5,12 +5,16 @@
   const sold = Number(d.packsSold || 0);
   const remaining = Math.max(total - sold, 0);
   const price = d.pricePerPack || "$99.99";
-  const buyUrl = d.buyPacksUrl || "https://www.ebay.com/";
   const storeUrl = d.ebayStoreUrl || "https://www.ebay.com/";
 
   ["buyPacks","navBuy","catalogBuy"].forEach(id => {
     const el = document.getElementById(id);
-    if(el){ el.href = buyUrl; el.target = "_blank"; el.rel = "noopener"; }
+    if(el){
+      el.href = "/api/create-checkout-session";
+      el.removeAttribute("target");
+      el.removeAttribute("rel");
+      el.addEventListener("click", startStripeCheckout);
+    }
   });
   const store = document.getElementById("ebayStore");
   if(store){ store.href = storeUrl; store.target = "_blank"; store.rel = "noopener"; }
@@ -48,4 +52,35 @@
   }
   const catTotal = document.getElementById("catalogTotal");
   if(catTotal) catTotal.textContent = total;
+
+  async function startStripeCheckout(event) {
+    event.preventDefault();
+
+    const link = event.currentTarget;
+    if (link.getAttribute("aria-busy") === "true") {
+      return;
+    }
+
+    link.setAttribute("aria-busy", "true");
+
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ product: "chase-pack" }),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.url) {
+        throw new Error(data.error || "Unable to start checkout.");
+      }
+
+      window.location.assign(data.url);
+    } catch (error) {
+      alert(error.message);
+      link.removeAttribute("aria-busy");
+    }
+  }
 })();
