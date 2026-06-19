@@ -5,7 +5,6 @@
   const sold = Number(d.packsSold || 0);
   const remaining = Math.max(total - sold, 0);
   const price = d.pricePerPack || "$99.99";
-  const storeUrl = d.ebayStoreUrl || "https://www.ebay.com/";
 
   ["buyPacks","navBuy","catalogBuy"].forEach(id => {
     const el = document.getElementById(id);
@@ -16,8 +15,6 @@
       el.addEventListener("click", startStripeCheckout);
     }
   });
-  const store = document.getElementById("ebayStore");
-  if(store){ store.href = storeUrl; store.target = "_blank"; store.rel = "noopener"; }
 
   const totalEl = document.getElementById("totalPacks");
   const soldEl = document.getElementById("packsSold");
