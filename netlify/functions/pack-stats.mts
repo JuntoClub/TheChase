@@ -15,7 +15,7 @@ export default async (req: Request, _context: Context) => {
   const stripeSecretKey = Netlify.env.get("STRIPE_SECRET_KEY");
   const stripePriceId = Netlify.env.get("STRIPE_CHASE_PRICE_ID");
   const totalPacks = getIntegerEnv("CHASE_TOTAL_PACKS", 105);
-  const baselineSold = getIntegerEnv("CHASE_BASELINE_PACKS_SOLD", 4);
+  const baselineSold = getIntegerEnv("CHASE_BASELINE_PACKS_SOLD", 0);
 
   if (!stripeSecretKey || !stripePriceId) {
     return json({ totalPacks, packsSold: baselineSold, packsRemaining: Math.max(totalPacks - baselineSold, 0) });
