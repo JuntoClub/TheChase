@@ -7,9 +7,7 @@ Changed on 2026-10-23 from commit `3f50a64`.
 - Deleted both Netlify functions and `package.json`, whose only dependencies served those functions. Checkout no longer runs account-authenticated server code on Netlify's managed Node.js runtime, following the runtime warning Ben reported on 2026-10-22.
 - Updated README checkout and counter instructions. Kept the catalog, inventory values, design, page paths, and `success.html` unchanged.
 
-HOLD: Stripe secret key rotation PENDING — Ben rolls it after this deploys. When done, DELETE this line.
-
-HOLD: Netlify env vars no longer used — STRIPE_SECRET_KEY, STRIPE_CHASE_PRICE_ID, STRIPE_SHIPPING_AMOUNT_CENTS, STRIPE_SHIPPING_DISPLAY_NAME, CHASE_TOTAL_PACKS, CHASE_BASELINE_PACKS_SOLD — Ben deletes them in the Netlify dashboard. When done, DELETE this line.
+DONE 2026-10-23: Stripe secret key rolled (old key expired) and all Stripe/Chase env vars removed from Netlify. The site holds no Stripe credentials.
 
 STANDING: packsSold in data.js is updated by hand after sales. The Stripe Payment Link's payment limit is what prevents overselling.
 
